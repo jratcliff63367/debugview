@@ -35,3 +35,5 @@
 /compiler/vc14win64/x64/ConvexDecomposition/debug/vhacdVolume.obj
 /compiler/vc14win64/x64/ConvexDecomposition/debug/wavefront.obj
 /meshes/deer_bound.rec
+/*.bak
+/meshes/*.bak

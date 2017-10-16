@@ -1,0 +1,418 @@
+<?xml version="1.0" ?>
+<robot name="ur10">
+  <link name="table__link">
+    <inertial>
+      <mass value="1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <collision name="table__surface">
+      <origin rpy="0  0  0" xyz="0  0  1"/>
+      <geometry>
+        <box size="1.5 0.8 0.03"/>
+      </geometry>
+    </collision>
+    <collision name="table__front_left_leg">
+      <origin rpy="0  0  0" xyz="0.68  0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </collision>
+    <collision name="table__front_right_leg">
+      <origin rpy="0  0  0" xyz="0.68 -0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </collision>
+    <collision name="table__back_right_leg">
+      <origin rpy="0  0  0" xyz="-0.68 -0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </collision>
+    <collision name="table__back_left_leg">
+      <origin rpy="0  0  0" xyz="-0.68  0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0  0  0" xyz="0  0  1"/>
+      <geometry>
+        <box size="1.4 0.8 0.04"/>
+      </geometry>
+    </visual>
+    <visual name="table__front_left_leg">
+      <origin rpy="0  0  0" xyz="0.68  0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </visual>
+    <visual name="table__front_right_leg">
+      <origin rpy="0  0  0" xyz="0.68 -0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </visual>
+    <visual name="table__back_right_leg">
+      <origin rpy="0  0  0" xyz="-0.68 -0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </visual>
+    <visual name="table__back_left_leg">
+      <origin rpy="0  0  0" xyz="-0.68  0.38  0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.02"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="table__link">
+      <material>Gazebo/Wood</material>
+      <selfCollide>true</selfCollide>
+   </gazebo>
+  <gazebo reference="table__front_left_leg"> <material>Gazebo/Wood</material> </gazebo>
+
+  <joint name="ur10__shoulder_pan" type="revolute">
+    <parent link="ur10__base"/>
+    <child link="ur10__shoulder"/>
+    <origin rpy="0  0  0" xyz="0      0      0.1273"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="33000.0" lower="-6.28319" upper="6.28319" velocity="2.16"/>
+  </joint>
+  <joint name="ur10__shoulder_lift" type="revolute">
+    <parent link="ur10__shoulder"/>
+    <child link="ur10__upper_arm"/>
+    <origin rpy="3.14159  1.57079  3.14159" xyz="0       0.22094  0"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="33000.0" lower="-6.28319" upper="6.28319" velocity="5.16"/>
+  </joint>
+  <joint name="ur10__elbow" type="revolute">
+    <parent link="ur10__upper_arm"/>
+    <child link="ur10__forearm"/>
+    <origin rpy="0  0  0" xyz="0     -0.1719  0.612"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="1500000.0" lower="-6.28319" upper="6.28319" velocity="3.15"/>
+  </joint>
+  <joint name="ur10__wrist_1_joint" type="revolute">
+    <parent link="ur10__forearm"/>
+    <child link="ur10__wrist_1"/>
+    <origin rpy="0  0  0" xyz="0      0      0.5723"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="54.0" lower="-6.28319" upper="6.28319" velocity="3.2"/>
+  </joint>
+  <joint name="ur10__wrist_2_joint" type="revolute">
+    <parent link="ur10__wrist_1"/>
+    <child link="ur10__wrist_2"/>
+    <origin rpy="0  0  1.57079" xyz="0      0.1149  0"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="54.0" lower="-6.28319" upper="6.28319" velocity="3.2"/>
+  </joint>
+  <joint name="ur10__wrist_3_joint" type="revolute">
+    <parent link="ur10__wrist_2"/>
+    <child link="ur10__wrist_3"/>
+    <origin rpy="0  0  0" xyz="0      0      0.1157"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="54.0" lower="-6.28319" upper="6.28319" velocity="3.2"/>
+  </joint>
+  <link name="ur10__base">
+    <inertial>
+      <mass value="4"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00610633" ixy="0" ixz="0" iyy="0.00610633" iyz="0" izz="0.01125"/>
+    </inertial>
+    <collision name="ur10__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.019"/>
+      <geometry>
+        <cylinder length="0.038" radius="0.075"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/base.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+<!--  <gazebo reference="ur10__base"> <selfCollide>true</selfCollide></gazebo> -->
+  <link name="ur10__shoulder">
+    <inertial>
+      <mass value="7.778"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.0314743" ixy="0" ixz="0" iyy="0.0314743" iyz="0" izz="0.0218756"/>
+    </inertial>
+    <collision name="ur10__collision">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.177" radius="0.075"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/shoulder.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+<gazebo reference="ur10__shoulder"> <selfCollide>true</selfCollide></gazebo>
+  <link name="ur10__upper_arm">
+    <inertial>
+      <mass value="12.93"/>
+      <origin rpy="0  0  0" xyz="0     0     0.306"/>
+      <inertia ixx="0.421754" ixy="0" ixz="0" iyy="0.421754" iyz="0" izz="0.0363656"/>
+    </inertial>
+    <collision name="ur10__collision1">
+      <origin rpy="1.5707  0      0" xyz="0    -0.045  0"/>
+      <geometry>
+        <cylinder length="0.177" radius="0.075"/>
+      </geometry>
+    </collision>
+    <collision name="ur10__collision2">
+      <origin rpy="0      0      1.5707" xyz="0     -0.0436  0.32"/>
+      <geometry>
+        <cylinder length="0.461" radius="0.058"/>
+      </geometry>
+    </collision>
+    <collision name="ur10__collision3">
+      <origin rpy="1.5707  0      0" xyz="0    -0.04   0.613"/>
+      <geometry>
+        <cylinder length="0.129" radius="0.058"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/upperarm.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="ur10__upper_arm"><selfCollide>true</selfCollide></gazebo>
+  <link name="ur10__forearm">
+    <inertial>
+      <mass value="3.87"/>
+      <origin rpy="0  0  0" xyz="0       0       0.28615"/>
+      <inertia ixx="0.11107" ixy="0" ixz="0" iyy="0.11107" iyz="0" izz="0.0108844"/>
+    </inertial>
+    <collision name="ur10__collision1">
+      <origin rpy="1.5707  0      0" xyz="0     0     0.001"/>
+      <geometry>
+        <cylinder length="0.136" radius="0.058"/>
+      </geometry>
+    </collision>
+    <collision name="ur10__collision2">
+      <origin rpy="0      0      1.5707" xyz="0     0     0.305"/>
+      <geometry>
+        <cylinder length="0.447" radius="0.045"/>
+      </geometry>
+    </collision>
+    <collision name="ur10__collision3">
+      <origin rpy="1.5707  0      0" xyz="0      0.001   0.5735"/>
+      <geometry>
+        <cylinder length="0.119" radius="0.045"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/forearm.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+<gazebo reference="ur10__forearm"><selfCollide>true</selfCollide></gazebo>
+  <link name="ur10__wrist_1">
+    <inertial>
+      <mass value="1.96"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00510825" ixy="0" ixz="0" iyy="0.00510825" iyz="0" izz="0.0055125"/>
+    </inertial>
+    <collision name="ur10__collision">
+      <origin rpy="0  0  0" xyz="0      0.115   0.0025"/>
+      <geometry>
+        <cylinder length="0.119" radius="0.0455"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/wrist1.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+<gazebo reference="ur10__wrist_1"><selfCollide>true</selfCollide></gazebo>
+  <link name="ur10__wrist_2">
+    <inertial>
+      <mass value="1.96"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00510825" ixy="0" ixz="0" iyy="0.00510825" iyz="0" izz="0.0055125"/>
+    </inertial>
+    <collision name="ur10__collision">
+      <origin rpy="1.5707  0      0" xyz="0       0.002    0.11659"/>
+      <geometry>
+        <cylinder length="0.119" radius="0.0455"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/wrist2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="ur10__wrist_2"><selfCollide>true</selfCollide></gazebo>
+  <link name="ur10__wrist_3">
+    <inertial>
+      <mass value="0.202"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.000526462" ixy="0" ixz="0" iyy="0.000526462" iyz="0" izz="0.000568125"/>
+    </inertial>
+    <collision name="ur10__collision">
+      <origin rpy="0  0      0" xyz="0 0  0"/>
+      <!--<origin rpy="1.5707  0      0" xyz="0      0.0765  0"/>-->
+      <geometry>
+        <cylinder length="0.031" radius="0.045"/>
+      </geometry>
+    </collision>
+    <visual name="ur10__visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="file://meshes/wrist3.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="ur10__wrist_3"><selfCollide>true</selfCollide></gazebo>
+  <joint name="ur10__table" type="fixed">
+    <parent link="table__link"/>
+    <child link="ur10__base"/>
+    <origin rpy="0  0  0" xyz="0 0 1"/>
+  </joint>
+  <link name="ur10__tray">
+    <inertial>
+      <mass value="0.00241023"/>
+      <origin rpy="0  0 0" xyz="0 0 0"/>
+      <inertia ixx="1.48619e-05" ixy="0" ixz="0" iyy="1.19312e-05" iyz="0" izz="2.62393e-05"/>
+    </inertial>
+    <collision name="ur10__tray__collision">
+      <origin rpy="0  0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.240883 0.037137 0.269476"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0  0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.240883 0.037137 0.269476"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="1 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+  <gazebo reference="ur10__tray">
+      <material>Gazebo/Wood</material>
+      <selfCollide>true</selfCollide>
+   </gazebo>
+  <joint name="ur10__wrist_3_tray_joint" type="fixed">
+    <parent link="ur10__wrist_3"/>
+    <child link="ur10__tray"/>
+    <origin rpy="0  0 0" xyz="0 0.085 0"/>
+    <axis xyz="0  0  0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+
+  <link name="ball">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <inertia ixx="0.000010" ixy="0.000000" ixz="0.000000" iyy="0.000010" iyz="0.000000" izz="0.000010"/>
+    </inertial>
+    <collision name="ball__collision">
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="ball">
+      <material>Gazebo/Red</material>
+      <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="ball_tray" type="floating">
+    <parent link="ur10__tray"/>
+    <child link="ball"/>
+    <origin rpy="0  0  0" xyz="0 0.0285685 0"/>
+  </joint>
+  <link name="camera_link">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1"  iyz="0" izz="1"/>
+    </inertial>
+    <collision name="collision">
+      <geometry>
+        <box size="0.3 0.3 0.3"/>
+      </geometry>
+      <max_contacts>10</max_contacts>
+      <surface>
+        <contact>
+          <ode/>
+        </contact>
+        <bounce/>
+        <friction>
+          <ode/>
+        </friction>
+      </surface>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <box size="0.3 0.3 0.3"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="camera_link">
+      <sensor name="world_camera" type="camera">
+        <camera>
+          <horizontal_fov>0.8</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>640</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <distortion>
+            <k1>-0.25</k1>
+            <k2>0.12</k2>
+            <k3>0.0</k3>
+            <p1>-0.00028</p1>
+            <p2>-0.00005</p2>
+            <center>0.5 0.5</center>
+          </distortion>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+        <topic>/image_raw</topic>
+        <plugin name="camera_controller" filename="libgazebo_ros_sync_camera.so">
+            <cameraName>world_camera</cameraName>
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+      </sensor>
+  </gazebo>
+  <joint name="fixed_camera" type="fixed">
+    <origin xyz="0.4 -3 3.0" rpy="0 0.4 1.57079"/>
+    <parent link="table__link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="table__link"/>
+  </joint>
+</robot>

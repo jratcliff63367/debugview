@@ -1,0 +1,12 @@
+@echo off
+cd bin
+cd win32
+copy f:\github\debugviewsrc\bin\win32\DebugView.exe
+copy f:\github\debugviewsrc\bin\win32\NvMemTracker_x86.dll
+copy f:\github\debugviewsrc\bin\win32\NvRenderDebug_x86.dll
+cd ..
+cd ..
+cd NvRenderDebug
+copy F:\github\debugviewsrc\Shared\NvRenderDebug\include\*.h
+copy F:\github\debugviewsrc\Shared\NvRenderDebug\include\*.cpp
+cd ..
